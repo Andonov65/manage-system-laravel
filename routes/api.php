@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\SalaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +16,15 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::apiResource('/companies', CompanyController::class)->only('index', 'show');
+
+Route::get('/getEmployeeSalaries/{employee}', [EmployeeController::class, 'getEmployeeSalaries']);
+Route::get('/getEmployeeAverageSalary/{employee}', [EmployeeController::class, 'getEmployeeAverageSalary']);
+
+Route::get('/getAverageSalaryForCompany/{company}', [SalaryController::class, 'getAverageSalaryForCompany']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
